@@ -1,7 +1,7 @@
 Calendar Sync Helper for React Native v0.61.4
 ------------------
 
-This is an example of a helper class for *react-native-calendar-events* to create custom calendar entries in a user's calendar. This solution isn't perfect, but I thought this example might help others that are learning how to use react-native-calendar-events with *React Native v0.61.4* and *auto-linking*.
+This is an example of a helper class for **react-native-calendar-events** to create custom calendar entries in a user's calendar. This solution isn't perfect, but I thought this example might help others that are learning how to use react-native-calendar-events with **React Native v0.61.4** and **auto-linking**.
 
 In the example below, the 3rd parameter is a function that I use as a status "emitter" that echoes back what is happening within the the nested asynchronous calls.
 
