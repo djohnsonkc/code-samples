@@ -20,7 +20,7 @@ export var CalendarSync = {
     EVENTS: [],
 
 
-    PerformSync: function(action, schedule, statusEmitter, callback) {
+    PerformSync: function(action, customEvents, statusEmitter, callback) {
 
         //****************************************************
         // Check if user has authorized access to their calendar
@@ -68,7 +68,7 @@ export var CalendarSync = {
 																					else {
 
 																						// re-insert shifts...
-                                            CalendarSync.AddMyAppEvents(calendars, schedule, statusEmitter, function(err, resp){
+                                            CalendarSync.AddMyAppEvents(calendars, customEvents, statusEmitter, function(err, resp){
 
                                                 if(err) {
                                                     callback(err, null)
@@ -283,40 +283,36 @@ export var CalendarSync = {
 
     },
 
-    AddMyAppEvents: function(calendars, schedule, statusEmitter, callback) {
+    AddMyAppEvents: function(calendars, customEvents, statusEmitter, callback) {
 
         let isAndroid = () => Platform.OS.toUpperCase() === 'ANDROID'
 
         let myAppCalendarId = calendars.myAppCalendar.id
 
-        schedule.forEach(function(s){
+        customEvents.forEach(function(s){
 
             s.data.forEach(function(shift){
 
-							if(shift.type === 'scheduled-shift') {
 
-                let title = 'MyApp: ' + shift.role_Desc
-                if(shift.sect_Desc && shift.sect_Desc !== '') {
-                    title +=  ' @ ' + shift.sect_Desc
-                }
+							let title = 'MyApp Custom Title'
 
-                let settings = {
-                    calendarId: myAppCalendarId,
-                    startDate: moment(shift.shift_Begin).toISOString(),
-                    endDate: moment(shift.shift_End).toISOString(),
-                    location: shift.location_Name
-                }
-                // android providers "description" NOT "notes"
-                if(isAndroid) {
-                    settings.description = shift.event_desc
-                }
-                else {
-                    settings.notes = shift.event_desc
-                }
-
-								RNCalendarEvents.saveEvent(title, settings) 
-								
+							let settings = {
+									calendarId: myAppCalendarId,
+									startDate: moment(shift.shift_Begin).toISOString(),
+									endDate: moment(shift.shift_End).toISOString(),
+									location: shift.location_Name
 							}
+							// android providers "description" NOT "notes"
+							if(isAndroid) {
+									settings.description = shift.event_desc
+							}
+							else {
+									settings.notes = shift.event_desc
+							}
+
+							RNCalendarEvents.saveEvent(title, settings) 
+								
+					
 
             })
 

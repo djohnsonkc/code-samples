@@ -18,7 +18,7 @@ Code Sample
 
 import { CalendarSync } from '../../Helpers/CalendarSync'
 
-CalendarSync.PerformSync("add", schedule, function(err, status) {
+CalendarSync.PerformSync("add", customEvents, function(err, status) {
 
     if(err) {
         console.log("statusEmitter ERROR", JSON.stringify(err, null, 2))
