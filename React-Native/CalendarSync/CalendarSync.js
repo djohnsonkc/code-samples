@@ -291,30 +291,30 @@ export var CalendarSync = {
 
         customEvents.forEach(function(s){
 
-            s.data.forEach(function(shift){
+					s.data.forEach(function(shift){
 
 
-							let title = 'MyApp Custom Title'
+						let title = 'My Custom Title'
 
-							let settings = {
-									calendarId: myAppCalendarId,
-									startDate: moment(shift.shift_Begin).toISOString(),
-									endDate: moment(shift.shift_End).toISOString(),
-									location: shift.location_Name
-							}
-							// android providers "description" NOT "notes"
-							if(isAndroid) {
-									settings.description = shift.event_desc
-							}
-							else {
-									settings.notes = shift.event_desc
-							}
+						let settings = {
+								calendarId: myAppCalendarId,
+								startDate: moment(shift.beginTime).toISOString(),
+								endDate: moment(shift.endTime).toISOString(),
+								location: shift.location_Name
+						}
+						// android providers "description" NOT "notes"
+						if(isAndroid) {
+								settings.description = shift.event_desc
+						}
+						else {
+								settings.notes = shift.event_desc
+						}
 
-							RNCalendarEvents.saveEvent(title, settings) 
-								
-					
+						RNCalendarEvents.saveEvent(title, settings) 
+							
+				
 
-            })
+					})
 
         })
 
